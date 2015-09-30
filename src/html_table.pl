@@ -8,25 +8,25 @@ use Getopt::Std;
 my ($help,$in,$out);
 
 GetOptions (
-  "help"=>\$help,
-  "out=s"=>\$out
+	"help"=>\$help,
+	"out=s"=>\$out
 );
 
 if($help) {
-  print "Usage: ./html_table.pl -out <output_file>\n";
-  exit(0);
+	print "Usage: ./html_table.pl -out <output_file>\n";
+	exit(0);
 }
 
 if($out ne ""){
-  $OUTFILE = "$out.html"; }
+	$OUTFILE = "$out.html"; }
 else { $OUTFILE = "table.html"; }
 
 open($oFH, ">$OUTFILE") or die "Cannot open output file!";
 $mFH = select($oFH);
 
-########################################################################
+###################################################################
 # Writing to HTML file
-########################################################################
+###################################################################
 print "$COMMENT This is a html file $eCOMMENT\n";
 print "$HEADING","<strong>TABLE</strong>","$eHEADING\n";
 print "$PREHEAD\n$HEAD\n$TITLE","Table";
@@ -47,14 +47,16 @@ print "Handle returned to STDOUT.";
 close($oFH);
 
 sub create_row {
-  my $ser = shift;
-  my @col_data = @_;
-  print "$TBLROW\n";
-  print "$TBLBDATA","text-align:center\" width=\"",$WIDTH[0],"%\">$ser","$eTBLBDATA\n";
-  my $i = 1;
-  foreach $elem (@col_data) {
-    print "$TBLBDATA","\" width=\"",$WIDTH[$i++],"%\">$elem","$eTBLBDATA\n";
-  }
-  print "$eTBLROW\n";
+	my $ser = shift;
+	my @col_data = @_;
+	print "$TBLROW\n";
+# Serial Number
+	print "$TBLBDATA","text-align:center\" width=\"",$WIDTH[0],"%\">$ser","$eTBLBDATA\n";
+	my $i = 1;
+# Data Columns
+	foreach $elem (@col_data) {
+		print "$TBLBDATA","\" width=\"",$WIDTH[$i++],"%\">$elem","$eTBLBDATA\n";
+	}
+	print "$eTBLROW\n";
 }
 
